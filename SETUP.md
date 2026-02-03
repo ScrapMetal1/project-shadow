@@ -58,6 +58,13 @@ Open Visual Studio Code and install the Dev Containers extension.
 
 This extension allows VS Code to connect directly into the Docker environment.
 
+**IMPORTANT FOR WSL USERS:**
+If you are working in WSL (indicated by the  `>< WSL: ...` button in the bottom left corner), you must ensure this extension is installed **inside WSL**.
+
+- Check the extension details.
+- If you see a button labeled **"Install in WSL: Ubuntu"** (or your distro name), **you must click it**.
+- The extension works best when its "Install" button is greyed out and it shows "Uninstall" or "Disable".
+
 ---
 
 # Part 2 – Daily Workflow
