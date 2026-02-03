@@ -77,10 +77,10 @@ code .
 
 You may clone the repository anywhere:
 
-- Windows filesystem  
-- WSL filesystem  
+- Windows filesystem (Note: GUI apps like Turtlesim may not work easily here)
+- WSL filesystem (**Recommended** for full GUI support and speed)
 
-Both locations will work.
+Using the WSL filesystem is strongly preferred to enable graphical tools out-of-the-box.
 
 ---
 
