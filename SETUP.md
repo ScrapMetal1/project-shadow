@@ -144,13 +144,33 @@ Then you are correctly inside the environment.
 ---
 
 ### Test ROS Installation
-
 Run this command:
 
+```bash
 ros2 --help
-
+```
 
 If the help menu appears, your setup is fully working.
+
+---
+
+### Verify GUI (Turtlesim)
+To confirm that graphical applications (WSLg) are working, run the classic ROS turtle simulation.
+
+1.  **Start the Simulation**:
+    ```bash
+    ros2 run turtlesim turtlesim_node
+    ```
+    A blue window with a turtle should appear.
+
+2.  **Control the Turtle** (Optional):
+    Open a **second terminal** (split verification) and run:
+    ```bash
+    ros2 run turtlesim turtle_teleop_key
+    ```
+    Use the arrow keys to move the turtle.
+
+If you see the turtle, your graphical environment is perfect.
 
 ---
 

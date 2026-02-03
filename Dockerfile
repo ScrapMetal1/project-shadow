@@ -12,12 +12,21 @@ RUN apt-get update && apt-get install -y \
     nano \
     udev \
     usbutils \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. Install Python Dependencies (AI & Hardware)
-# We use --break-system-packages because Ubuntu 24.04 forces PEP 668. 
-# Inside a container, this is safe.
-RUN pip3 install --break-system-packages \
+# We use a virtual environment with --system-site-packages to allow access to ROS libraries
+# while avoiding conflicts with system packages (fixing the PEP 668 / uninstall error).
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv --system-site-packages $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# Install dependencies into the venv. 
+# We explicitly pin numpy<2 because ROS 2 Jazzy (on Ubuntu 24.04) is built against numpy 1.x.
+# Ultralytics might pull in numpy 2.x otherwise, causing ABI incompatibilities.
+RUN pip3 install --no-cache-dir \
+    "numpy<2" \
     ultralytics \
     opencv-python \
     pyserial \
@@ -26,3 +35,9 @@ RUN pip3 install --break-system-packages \
 # 3. Setup ROS Environment
 # This ensures "ros2 run" works immediately when you open a terminal
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+
+# 4. Install Verification Tools (Turtlesim)
+# We do this last to avoid rebuilding the heavy Python layers if we just want to add a tool.
+RUN apt-get update && apt-get install -y \
+    ros-jazzy-turtlesim \
+    && rm -rf /var/lib/apt/lists/*

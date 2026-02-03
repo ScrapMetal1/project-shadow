@@ -16,10 +16,14 @@
   },
   "runArgs": [
     "--network=host",
-    "--privileged"
+    "--privileged",
+    "--mount=type=bind,source=/mnt/wslg,target=/mnt/wslg,readonly",
+    "--mount=type=bind,source=/tmp,target=/tmp"
   ],
   "containerEnv": {
-    "DISPLAY": "${localEnv:DISPLAY}"
+    "DISPLAY": ":0",
+    "WAYLAND_DISPLAY": "wayland-0",
+    "XDG_RUNTIME_DIR": "/mnt/wslg/runtime-dir"
   },
   "remoteUser": "root"
 }
